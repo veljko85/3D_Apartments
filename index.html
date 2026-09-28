@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Building Configurator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babylonjs@6.0.0/babylon.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/babylonjs-materials@6.0.0/babylonjs.materials.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/babylonjs-loaders@6.0.0/babylonjs.loaders.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main>
+      <div id="customLoadingScreenDiv">
+        <lottie-player
+          src="97493-city-building.json"
+          id="loadI"
+          class="loadingL"
+          background="transparent"
+          speed="1"
+          loop
+          autoplay
+        ></lottie-player>
+        <div id="loadingText">Loading Building Configurator</div>
+        <div id="loadingPercentages"></div>
+      </div>
+      <div id="pointerText">Click on building floor</div>
+      <div id="navigation">
+        <div class="navC">BUILDING</div>
+        <div class="navC">APARTMENTS</div>
+        <div class="navC">PRICING</div>
+        <div class="navC">ABOUT US</div>
+        <div id="lines">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+      <div id="logo">
+        <svg
+          width="154"
+          height="58"
+          viewBox="0 0 154 58"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path d="M0 0H154V58H0V0Z" fill="url(#pattern0)" />
+          <defs>
+            <pattern
+              id="pattern0"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                xlink:href="#image0_1_26"
+                transform="scale(0.00333333 0.00885057)"
+              />
+            </pattern>
+            <image
+              id="image0_1_26"
+              width="300"
+              height="113"
+              xlink:href="data:image/png;base64,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"
+            />
+          </defs>
+        </svg>
+      </div>
+      <div id="copyright">© 2023 by Mago Properties</div>
+      <div id="rightText">Apartment Viewer by quince creative</div>
+
+      <div id="logoText">
+        <h1>Find your apartment</h1>
+        <div id="textLogoText">
+          Discover your ideal apartment. Our user-friendly website features a
+          wide range of apartments in various locations, offering detailed
+          descriptions. Simplify your search and make an informed decision with
+          our neighborhood guides and intuitive search tools. Start your
+          apartment hunting journey with us today!
+        </div>
+        <div id="socials">
+          <div class="socialsLogo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+            >
+              <circle cx="18" cy="18" r="18" fill="#2A2A2A" />
+              <path
+                d="M15.8596 22.7504C15.7674 21.5514 15.7674 20.3524 15.6751 19.0612C15.6751 18.4157 15.3985 17.9545 14.6606 17.9545C14.1995 17.9545 13.7384 18.0467 13.6461 17.4011C13.5539 16.5711 13.3694 15.6488 13.6461 14.8188C13.6461 14.7265 14.015 14.5421 14.1995 14.5421C15.5829 14.8188 15.8596 14.0809 15.8596 12.9742C15.8596 10.0229 18.3498 8.45504 21.5777 8.63949C22.5 8.73172 22.5 9.46955 22.5 10.1151C22.4078 10.7607 22.7767 11.683 21.5777 11.683C20.5632 11.5908 19.8254 11.9597 19.8254 13.1587C19.8254 13.9887 19.9176 14.6343 20.9321 14.7265C22.4078 14.8188 22.1311 15.8333 22.1311 16.8478C22.2233 17.9545 21.6699 18.3234 20.6554 18.3234C19.6409 18.3234 19.4565 18.8768 19.4565 19.7991C19.4565 21.8281 19.4565 23.7649 19.3643 25.7939C19.272 27.0851 18.9953 27.1773 17.243 27.085C16.0441 27.085 15.8596 26.5317 15.9518 25.5172C15.7674 24.6871 15.7674 23.7649 15.8596 22.7504Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="socialsLogo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+            >
+              <circle cx="18" cy="18" r="18" fill="#2A2A2A" />
+              <path
+                d="M11.8832 19.8584C11.3287 19.304 10.7743 18.7495 10.3307 18.1951C9.77625 17.4188 8.66733 16.6426 10.2198 15.6445C10.6634 15.3119 10.3307 14.6465 10.2198 14.2029C9.88714 13.2049 9.77625 12.2069 9.77625 10.6544C11.2178 12.7614 12.6594 13.9812 14.7664 14.5356C15.4317 14.7574 16.0971 14.7574 16.8733 14.8683C18.204 14.9792 18.7585 14.3138 18.8694 12.9831C19.2021 9.54546 21.0872 8.43654 24.0813 10.2108C25.1902 10.8762 25.6338 9.87814 26.5209 9.76725C26.8536 10.6544 27.4081 11.5415 26.5209 12.5395C26.0774 12.9831 26.1883 13.6485 26.1883 14.3138C26.0774 19.5258 22.8615 23.8505 17.8714 25.403C16.3189 25.9575 14.6555 26.2902 12.8812 26.2902C11.4396 26.1793 10.1089 25.9575 9 24.5159C10.4416 24.2941 12.105 25.0704 13.103 23.407C12.4377 22.409 10.6634 22.0763 10.5525 20.4129C10.7743 19.8584 11.5505 20.4129 11.8832 19.8584Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="socialsLogo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+            >
+              <circle cx="18" cy="18" r="18" fill="#2A2A2A" />
+              <path
+                d="M23.904 12.1928C23.4172 12.7737 22.9305 13.1222 22.5654 13.5869C21.957 14.4002 21.4702 14.5164 20.4967 13.9355C18.1845 12.6575 16.2375 13.2384 14.2904 15.3297C12.8301 16.8401 12.7084 19.1638 13.8036 21.0227C15.3856 23.5788 20.74 23.6949 22.4437 21.2551C22.9305 20.558 22.6871 19.9771 21.7136 19.8609C21.1051 19.7447 20.375 19.9771 19.6448 19.8609C18.4279 19.7447 17.9411 19.1638 18.0628 18.0019C18.0628 16.8401 18.9147 16.7239 19.8882 16.7239C21.5919 16.7239 23.1739 16.7239 24.8775 16.8401C26.7029 16.9563 26.8246 17.1886 26.4595 18.9314C26.4595 19.1638 26.2162 19.5123 26.2162 19.7447C25.6077 22.7655 24.5125 25.3215 21.1051 26.251C17.4544 27.1804 14.1687 26.3672 11.4915 23.9273C8.57089 21.2551 8.69258 15.3297 11.7349 12.5413C15.3856 8.93961 20.375 8.82344 23.904 12.1928Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="socialsLogo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+            >
+              <circle cx="18" cy="18" r="18" fill="#2A2A2A" />
+              <path
+                d="M17.8727 26.6384C16.2923 26.6384 14.7119 26.733 13.2245 26.6384C11.0864 26.4492 10.2497 25.6922 9.87788 23.4213C9.41307 20.772 9.22715 18.2173 9.50604 15.568C9.599 14.6218 9.69196 13.5809 9.87788 12.6347C10.1568 10.6477 10.9934 9.79616 12.9457 9.32307C13.7823 9.13383 14.526 9.0392 15.3627 9.13382C17.129 9.22844 18.8953 9.22843 20.6616 9.03919C21.4982 8.94457 22.2419 9.0392 23.0786 9.13382C24.6589 9.32306 25.7745 10.1746 25.9604 11.7832C26.5182 15.7572 26.983 19.7312 26.2393 23.7052C25.8675 25.5976 25.0308 26.3545 23.1715 26.733C21.4982 26.8276 19.7319 26.733 17.8727 26.6384ZM18.2445 13.9594C16.1064 13.8648 14.2471 15.4733 14.0612 17.4603C13.8753 19.9204 15.3627 21.529 17.8727 21.7182C19.8249 21.8128 21.6842 20.1097 21.8701 17.9334C22.056 15.9464 20.3827 14.054 18.2445 13.9594ZM24.0082 12.4455C23.9152 11.8778 23.6364 11.4993 22.9856 11.4993C22.2419 11.4993 21.8701 11.9724 21.8701 12.6347C21.8701 13.2971 22.2419 13.7702 22.9856 13.7702C23.7293 13.6755 24.0082 13.2024 24.0082 12.4455Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <canvas id="renderCanvas"></canvas>
+      <div id="UI">
+        <div id="textBlock">
+          <h3 id="textBlockTitle"></h3>
+          <div id="textBlockText"></div>
+          <div id="isAwailable"></div>
+        </div>
+        <div id="buttonBox">
+          <button id="inOut">Look inside</button><button id="buy">Buy</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="js.js"></script>
+  </body>
+</html>
