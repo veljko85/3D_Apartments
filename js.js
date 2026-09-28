@@ -263,8 +263,7 @@ var createScene = function () {
     if (evt.lengthComputable) {
       loadedPercent = ((evt.loaded * 100) / evt.total).toFixed();
     } else {
-      const dlCount = evt.loaded / (1024 * 1024);
-      loadedPercent = Math.floor(dlCount * 100.0) / 100.0;
+      loadedPercent = ((evt.loaded * 100) / 11494972).toFixed();
     }
     document.getElementById(
       "loadingPercentages"
