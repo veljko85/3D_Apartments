@@ -260,7 +260,6 @@ var createScene = function () {
 
   BABYLON.SceneLoader.ImportMeshAsync("", "stan.glb", null, scene, (evt) => {
     let loadedPercent = 0;
-    console.log(evt);
     if (evt.lengthComputable) {
       loadePercent = (evt.loaded * 100) / evt.total;
       loadePercent = loadePercent.toFixed();
